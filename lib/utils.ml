@@ -15,4 +15,18 @@ let read_lines (file_name : string) : string list =
 ;;
 
 (* reading bytes directly would be more efficient *)
-let read_file (file_name : string) : string = read_lines file_name |> String.concat "\n"
+let read_file (file_name : string) : string list = read_lines file_name
+
+module IntMap = Map.Make (Int)
+
+let count_frequencies lst =
+  List.fold_left
+    (fun map x ->
+      let current_count =
+        try IntMap.find x map with
+        | Not_found -> 0
+      in
+      IntMap.add x (current_count + 1) map)
+    IntMap.empty
+    lst
+;;

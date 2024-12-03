@@ -13,8 +13,7 @@ let rec sum_list (list : int list) =
 ;;
 
 let part1 () =
-  let input1 = Utils.read_file "inputs/1.txt" in
-  let lines = String.split_on_char '\n' input1 in
+  let lines = Utils.read_file "inputs/1.txt" in
   let pairs = List.map get_pairs lines in
   let sorted1 = List.fast_sort Int.sub (List.map fst pairs) in
   let sorted2 = List.fast_sort Int.sub (List.map snd pairs) in
@@ -22,31 +21,18 @@ let part1 () =
   sum_list diff
 ;;
 
-module IntMap = Map.Make (Int)
+(* ################################################################## *)
 
-let count_frequencies lst =
-  List.fold_left
-    (fun map x ->
-       let current_count =
-         try IntMap.find x map with
-         | Not_found -> 0
-       in
-       IntMap.add x (current_count + 1) map)
-    IntMap.empty
-    lst
-;;
-
-let similarity (counter : int IntMap.t) (item : int) : int =
+let similarity (counter : int Utils.IntMap.t) (item : int) : int =
   item
   *
-  try IntMap.find item counter with
+  try Utils.IntMap.find item counter with
   | Not_found -> 0
 ;;
 
 let part2 () =
-  let input1 = Utils.read_file "inputs/1.txt" in
-  let lines = String.split_on_char '\n' input1 in
+  let lines = Utils.read_file "inputs/1.txt" in
   let pairs = List.map get_pairs lines in
-  let counter = count_frequencies (List.map snd pairs) in
+  let counter = Utils.count_frequencies (List.map snd pairs) in
   sum_list (List.map (similarity counter) (List.map fst pairs))
 ;;
