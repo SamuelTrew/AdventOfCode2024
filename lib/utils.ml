@@ -30,3 +30,5 @@ let count_frequencies lst =
     IntMap.empty
     lst
 ;;
+
+let sum_list = List.fold_left (+) 0

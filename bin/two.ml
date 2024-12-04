@@ -22,7 +22,7 @@ let is_valid_change (report : string list) =
 let part1 () =
   let lines = Utils.read_file "inputs/2.txt" in
   let reports = List.map (String.split_on_char ' ') lines in
-  List.fold_left ( + ) 0 (List.map is_valid_change reports)
+  Utils.sum_list (List.map is_valid_change reports)
 ;;
 
 (* ################################################################## *)
@@ -66,5 +66,5 @@ let is_valid_count (report : string list) =
 let part2 () =
   let lines = Utils.read_file "inputs/2.txt" in
   let reports = List.map (String.split_on_char ' ') lines in
-  List.fold_left ( + ) 0 (List.map is_valid_count reports)
+  Utils.sum_list (List.map is_valid_count reports)
 ;;
