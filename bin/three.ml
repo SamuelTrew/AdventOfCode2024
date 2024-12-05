@@ -11,7 +11,7 @@ let find_all_matches str =
       (* Continue to next match *)
       loop (Str.match_end ()) ((fst, snd) :: acc)
     with
-    | Not_found -> List.rev acc  (* Return the collected matches in the correct order *)
+    | Not_found -> List.rev acc (* Return the collected matches in the correct order *)
   in
   loop 0 []
 ;;
@@ -19,21 +19,19 @@ let find_all_matches str =
 let count input =
   let matches = find_all_matches input in
   (* Print matches with newlines for better readability *)
-  Utils.sum_list (List.map (fun (a,b) -> a*b) matches)
+  Utils.sum_list (List.map (fun (a, b) -> a * b) matches)
 ;;
 
-let part1 () =
-  Utils.read_file "inputs/3.txt" |> String.concat "" |> count
-;;
+let part1 () = Utils.read_file "inputs/3.txt" |> String.concat "" |> count
 
 (* ################################################################## *)
 
 let filter_dont str =
   let splits = Str.split (Str.regexp "do()") str in
-  let good = List.map (fun split -> List.nth (Str.split (Str.regexp "don't()") split) 0) splits in
+  let good =
+    List.map (fun split -> List.nth (Str.split (Str.regexp "don't()") split) 0) splits
+  in
   String.concat "" good
 ;;
 
-let part2 () =
-  Utils.read_file "inputs/3.txt" |> String.concat "" |> filter_dont |> count
-;;
+let part2 () = Utils.read_file "inputs/3.txt" |> String.concat "" |> filter_dont |> count

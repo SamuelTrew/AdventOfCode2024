@@ -31,4 +31,5 @@ let count_frequencies lst =
     lst
 ;;
 
-let sum_list = List.fold_left (+) 0
+let sum_list = List.fold_left ( + ) 0
+let string_to_char_list (s : string) = s |> String.to_seq |> List.of_seq
