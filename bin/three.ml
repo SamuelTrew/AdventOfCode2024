@@ -22,7 +22,7 @@ let count input =
   Utils.sum_list (List.map (fun (a, b) -> a * b) matches)
 ;;
 
-let part1 () = Utils.read_file "inputs/3.txt" |> String.concat "" |> count
+let part1 () = Utils.read_lines "inputs/3.txt" |> String.concat "" |> count
 
 (* ################################################################## *)
 
@@ -34,4 +34,4 @@ let filter_dont str =
   String.concat "" good
 ;;
 
-let part2 () = Utils.read_file "inputs/3.txt" |> String.concat "" |> filter_dont |> count
+let part2 () = Utils.read_lines "inputs/3.txt" |> String.concat "" |> filter_dont |> count

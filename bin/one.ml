@@ -13,7 +13,7 @@ let rec sum_list (list : int list) =
 ;;
 
 let part1 () =
-  let lines = Utils.read_file "inputs/1.txt" in
+  let lines = Utils.read_lines "inputs/1.txt" in
   let pairs = List.map get_pairs lines in
   let sorted1 = List.fast_sort Int.sub (List.map fst pairs) in
   let sorted2 = List.fast_sort Int.sub (List.map snd pairs) in
@@ -31,7 +31,7 @@ let similarity (counter : int Utils.IntMap.t) (item : int) : int =
 ;;
 
 let part2 () =
-  let lines = Utils.read_file "inputs/1.txt" in
+  let lines = Utils.read_lines "inputs/1.txt" in
   let pairs = List.map get_pairs lines in
   let counter = Utils.count_frequencies (List.map snd pairs) in
   sum_list (List.map (similarity counter) (List.map fst pairs))

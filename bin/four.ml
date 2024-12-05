@@ -45,7 +45,7 @@ let count_for_coord (matrix : char list list) ((y, x) : int * int) =
 ;;
 
 let part1 () =
-  let lines = Utils.read_file "inputs/4.txt" in
+  let lines = Utils.read_lines "inputs/4.txt" in
   let matrix = List.map Utils.string_to_char_list lines in
   let coords = starting_points 'X' matrix in
   List.map (count_for_coord matrix) coords |> Utils.sum_list
@@ -80,7 +80,7 @@ let valid_corners (matrix : char list list) ((y, x) : int * int) =
 ;;
 
 let part2 () =
-  let lines = Utils.read_file "inputs/4.txt" in
+  let lines = Utils.read_lines "inputs/4.txt" in
   let matrix = List.map Utils.string_to_char_list lines in
   let coords = starting_points 'A' matrix in
   let viable_coords =
