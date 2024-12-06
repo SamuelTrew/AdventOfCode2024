@@ -28,3 +28,12 @@ let count_frequencies lst =
 
 let sum_list = List.fold_left ( + ) 0
 let string_to_char_list (s : string) = s |> String.to_seq |> List.of_seq
+
+(* Returns all coords of characters matching chr *)
+let starting_points (chr : char) (input : char list list) : (int * int) list =
+  List.mapi
+    (fun y row -> List.mapi (fun x curr -> if curr == chr then Some (y, x) else None) row)
+    input
+  |> List.flatten
+  |> List.filter_map (fun x -> x)
+;;

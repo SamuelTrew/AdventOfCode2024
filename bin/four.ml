@@ -1,12 +1,3 @@
-(* Returns all coords of characters matching chr *)
-let starting_points (chr : char) (input : char list list) : (int * int) list =
-  List.mapi
-    (fun y row -> List.mapi (fun x curr -> if curr == chr then Some (y, x) else None) row)
-    input
-  |> List.flatten
-  |> List.filter_map (fun x -> x)
-;;
-
 let directions = [ -1, -1; -1, 0; -1, 1; 0, -1; 0, 1; 1, -1; 1, 0; 1, 1 ]
 
 let get_coord (matrix : char list list) (y : int) (x : int) =
@@ -47,7 +38,7 @@ let count_for_coord (matrix : char list list) ((y, x) : int * int) =
 let part1 () =
   let lines = Utils.read_lines "inputs/4.txt" in
   let matrix = List.map Utils.string_to_char_list lines in
-  let coords = starting_points 'X' matrix in
+  let coords = Utils.starting_points 'X' matrix in
   List.map (count_for_coord matrix) coords |> Utils.sum_list
 ;;
 
@@ -82,7 +73,7 @@ let valid_corners (matrix : char list list) ((y, x) : int * int) =
 let part2 () =
   let lines = Utils.read_lines "inputs/4.txt" in
   let matrix = List.map Utils.string_to_char_list lines in
-  let coords = starting_points 'A' matrix in
+  let coords = Utils.starting_points 'A' matrix in
   let viable_coords =
     List.filter
       (fun (y, x) ->
