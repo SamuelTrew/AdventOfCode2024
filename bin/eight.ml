@@ -19,7 +19,7 @@ let get_coord_groups (coord_pairs : (char * (int * int)) list) =
   |> List.map snd
 ;;
 
-let is_oob (y : int) (x : int) (height : int) (width :int) =
+let is_oob (y : int) (x : int) (height : int) (width : int) =
   y < 0 || x < 0 || y >= height || x >= width
 ;;
 
@@ -58,17 +58,24 @@ let part1 () =
 
 (* ################################################################## *)
 
-let rec hop_forever (y : int) (x : int) (dy : int) (dx : int) (height : int) (width :int) =
-  if (is_oob y x height width) then [] else (y, x) :: hop_forever (y + dy) (x + dx) dy dx height width
+let rec hop_forever (y : int) (x : int) (dy : int) (dx : int) (height : int) (width : int)
+  =
+  if is_oob y x height width
+  then []
+  else (y, x) :: hop_forever (y + dy) (x + dx) dy dx height width
 ;;
 
-let anti_nodes_forever (matrix : char list list) ((ay, ax) : int * int) ((by, bx) : int * int) =
+let anti_nodes_forever
+  (matrix : char list list)
+  ((ay, ax) : int * int)
+  ((by, bx) : int * int)
+  =
   let height = List.length matrix in
   let width = List.length (List.nth matrix 0) in
   let dy, dx = ay - by, ax - bx in
   let up = hop_forever ay ax dy dx height width in
   let down = hop_forever by bx (-dy) (-dx) height width in
-  List.concat [up; down]
+  List.concat [ up; down ]
 ;;
 
 let rec collect_forever_anti_nodes (matrix : char list list) (coords : (int * int) list) =
