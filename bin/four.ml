@@ -1,9 +1,5 @@
 let directions = [ -1, -1; -1, 0; -1, 1; 0, -1; 0, 1; 1, -1; 1, 0; 1, 1 ]
 
-let get_coord (matrix : char list list) (y : int) (x : int) =
-  List.nth (List.nth matrix y) x
-;;
-
 (* Checks that the given points around (y,x) are valid at given mult *)
 let in_bound_points
   (matrix : char list list)
@@ -22,7 +18,7 @@ let in_bound_points
 ;;
 
 let count_for_coord (matrix : char list list) ((y, x) : int * int) =
-  let get_m_coord = get_coord matrix in
+  let get_m_coord = Utils.get_coord matrix in
   let viable_dirs = in_bound_points matrix (y, x) directions 3 in
   List.map
     (fun (ud, lr) ->
@@ -58,7 +54,7 @@ let rotations = [ xmas; rotate xmas 1; rotate xmas 2; rotate xmas 3 ]
 
 (* For each rotation find if any are valid *)
 let valid_corners (matrix : char list list) ((y, x) : int * int) =
-  let get_m_coord = get_coord matrix in
+  let get_m_coord = Utils.get_coord matrix in
   List.find_opt
     (fun order ->
       List.mapi

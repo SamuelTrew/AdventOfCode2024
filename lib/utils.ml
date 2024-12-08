@@ -37,3 +37,24 @@ let starting_points (chr : char) (input : char list list) : (int * int) list =
   |> List.flatten
   |> List.filter_map (fun x -> x)
 ;;
+
+let get_coord (matrix : char list list) (y : int) (x : int) =
+  List.nth (List.nth matrix y) x
+;;
+
+(* Define a comparison function for tuples of (int * int) *)
+let compare_tuple (a1, b1) (a2, b2) =
+  let cmp1 = compare a1 a2 in
+  if cmp1 = 0 then compare b1 b2 else cmp1
+;;
+
+(* Create a set of (int * int) tuples *)
+module CoordSet = Set.Make (struct
+    type t = int * int
+
+    let compare = compare_tuple
+  end)
+
+let set_of_list (li : (int * int) list) =
+  List.fold_left (fun set elem -> CoordSet.add elem set) CoordSet.empty li
+;;

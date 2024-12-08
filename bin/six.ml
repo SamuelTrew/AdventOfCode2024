@@ -18,24 +18,11 @@ let rotate (c : char) =
 
 (* ################################################################## *)
 
-(* Define a comparison function for tuples of (int * int) *)
-let compare_tuple (a1, b1) (a2, b2) =
-  let cmp1 = compare a1 a2 in
-  if cmp1 = 0 then compare b1 b2 else cmp1
-;;
-
-(* Create a set of (int * int) tuples *)
-module IntPairSet = Set.Make (struct
-    type t = int * int
-
-    let compare = compare_tuple
-  end)
-
 let progress
   (matrix : char list list)
   ((y, x) : int * int)
   (c : char)
-  (visited : IntPairSet.t)
+  (visited : Utils.CoordSet.t)
   =
   let height = List.length matrix in
   let width = List.length (List.nth matrix 0) in
@@ -43,7 +30,7 @@ let progress
     (matrix : char list list)
     ((y, x) : int * int)
     (c : char)
-    (visited : IntPairSet.t)
+    (visited : Utils.CoordSet.t)
     =
     let dy, dx = direction c in
     let new_pos = y + dy, x + dx in
@@ -54,7 +41,7 @@ let progress
     | pos when snd pos == width -> visited
     | pos when List.nth (List.nth matrix (fst pos)) (snd pos) == '#' ->
       prog_help matrix (y, x) (rotate c) visited
-    | _ -> prog_help matrix new_pos c (IntPairSet.add new_pos visited)
+    | _ -> prog_help matrix new_pos c (Utils.CoordSet.add new_pos visited)
   in
   prog_help matrix (y, x) c visited
 ;;
@@ -62,7 +49,7 @@ let progress
 let part1 () =
   let matrix = Utils.read_lines "inputs/6.txt" |> List.map Utils.string_to_char_list in
   let start = List.nth (Utils.starting_points '^' matrix) 0 in
-  progress matrix start '^' (IntPairSet.singleton start) |> IntPairSet.cardinal
+  progress matrix start '^' (Utils.CoordSet.singleton start) |> Utils.CoordSet.cardinal
 ;;
 
 (* ################################################################## *)
@@ -71,7 +58,7 @@ let part1 () =
 module IntPairMap = Map.Make (struct
     type t = int * int
 
-    let compare = compare_tuple
+    let compare = Utils.compare_tuple
   end)
 
 module CharSet = Set.Make (Char)
