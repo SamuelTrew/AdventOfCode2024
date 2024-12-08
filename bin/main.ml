@@ -1,4 +1,9 @@
-let res1 = Six.part1 () in
-let res2 = Six.part2 () in
-let () = Printf.printf "%i\n" res1 in
-Printf.printf "%i\n" res2
+let time f =
+  let t = Sys.time () in
+  let fx = f () in
+  Printf.printf "\nExecution time: %fms\n" ((Sys.time () -. t) *. float_of_int 1000);
+  Printf.printf "%i\n" fx
+;;
+
+time Six.part1;
+time Six.part2
