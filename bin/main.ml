@@ -5,5 +5,5 @@ let time f =
   Printf.printf "%i\n" fx
 ;;
 
-time Six.part1;
-time Six.part2
+time Seven.part1;
+time Seven.part2
